@@ -1,0 +1,273 @@
+openapi: 3.0.3
+info:
+  title: Choreo - Gestion de blog - Nodejs REST API Service
+  description: >-
+    API REST de gestion de blog
+  license:
+    name: ISC
+  version: 1.0.0
+externalDocs:
+  description: Choreo
+  url: https://choreo.dev
+servers:
+  - url: http://localhost:2580
+tags:
+  - name: blogs
+    description: In-memory article list cache API
+paths:
+  /blog/articles:
+    summary: List all articles
+    get:
+      summary: List all articles
+      operationId: findAllArticles
+      tags:
+        - articles
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StringArray"
+
+    /blog/article:
+    summary: List an article
+    post:
+      summary: Insert a new article
+      operationId: createArticle
+      responses:
+        "200":
+          description: Successful operation
+        "400":
+          description: Invalid request body
+      tags:
+        - articles
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ArticleInfo"
+
+  /blog/article/{id}:
+    summary: Get article by ID
+    get:
+      tags:
+        - articles
+      summary: Get article by ID
+      operationId: findArticleById
+      parameters:
+        - name: IdArticle
+          in: path
+          description: ID of article to return
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ArticleInfo"
+        "404":
+          description: UUID not found
+    delete:
+      tags:
+        - articles
+      summary: Delete article by ID
+      description: Delete a single article based on the ID supplied
+      operationId: deleteArticle
+      parameters:
+        - name: IdArticle
+          in: path
+          description: ID of article to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+        "404":
+          description: ISBN not found
+    put:
+      tags:
+        - articles
+      summary: Update article status by ID
+      description: Updates an article based on the ID supplied
+      operationId: updateArticle
+      parameters:
+        - name: IdArticle
+          in: path
+          description: ID of article to update
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+        "404":
+          description: UUID not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ArticleInfo"
+
+    /utilisateurs:
+    summary: List all users
+    get:
+      summary: List all users
+      operationId: findAllUtilisateurs
+      tags:
+        - users
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/StringArray"
+
+    /utilisateur:
+    summary: List an user
+    post:
+      summary: Insert a new user
+      operationId: createUtilisateur
+      responses:
+        "200":
+          description: Successful operation
+        "400":
+          description: Invalid request body
+      tags:
+        - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserInfo"
+
+    /utilisateur/{id}:
+    summary: Get user by ID
+    get:
+      tags:
+        - users
+      summary: Get user by ID
+      operationId: findUtilisateurById
+      parameters:
+        - name: IdUtilusateur
+          in: path
+          description: ID of user to return
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserInfo"
+        "404":
+          description: ID not found
+    delete:
+      tags:
+        - users
+      summary: Delete user by ID
+      description: Deletes a single user based on the ID supplied
+      operationId: deleteUtilisateur
+      parameters:
+        - name: IdUtilusateur
+          in: path
+          description: ID of user to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+        "404":
+          description: ISBN not found
+    put:
+      tags:
+        - users
+      summary: Update user status by ID
+      description: Updates an userbased on the ID supplied
+      operationId: updateUtilisateur
+      parameters:
+        - name: IdUtilusateur
+          in: path
+          description: ID of user to update
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successful operation
+        "404":
+          description: ID not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserInfo"
+
+  /healthz:
+    summary: Healthcheck endpoint
+    get:
+      summary: Healthcheck
+      operationId: Healthcheck
+      responses:
+        "200":
+          description: Healthy response
+
+components:
+  schemas:
+    KeyArticle:
+      type: object
+      properties:
+        IdArticle:
+          type: INTEGER
+          example: 01120
+    ArticleInfo:
+      type: object
+      required:
+        - titre
+        - contenu
+        - IdUtilusateur
+      properties:
+        title:
+          type: string
+          example: "mon-titre"
+        contenu:
+          type: string
+          example: "mon-contenu"
+        IdUtilusateur:
+          type: INTEGER
+          example: 0222
+    KeyUtilisateur:
+      type: object
+      properties:
+        IdUtilusateur:
+          type: INTEGER
+          example: 230
+    UserInfo:
+      type: object
+      required:
+        - nomUtilisateur
+        - mail
+        - motdepasse
+      properties:
+        nomUtilisateur:
+          type: string
+          example: "mon-nom"
+        mail:
+          type: string
+          example: "mon-mail"
+        motdepasse:
+          type: string
+          example: "12345mdp"
+        
+    StringArray:
+      type: array
+      items:
+        type: string
