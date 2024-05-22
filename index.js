@@ -15,7 +15,11 @@ const cors = require("cors");
 app.use(bodyparser.json());
 const swaggerDocument = require("./swagger.json");
 
-app.use(cors())
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 //Use routes
 app.use("/soa", utilisateurRouter);
 app.use("/soa", articleRouter);
