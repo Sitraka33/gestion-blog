@@ -1,4 +1,6 @@
-import swaggerUi from 'swagger-ui-express';
+
+
+const swaggerUi = require('swagger-ui-express');
 
 const express = require('express')
 const app = express()
