@@ -124,10 +124,13 @@
                 "description":"renvoie l'article par id",
                 "parameters":[
                     {
+                        "in" : "paths",
                         "name" : "id",
                         "required" : true,
-                        "in" : "paths",
-                        "type" : "integer"
+                        "schema":{
+                            "type" : "integer"
+                        }
+                        
                     }
                 ],
                 "responses":{
