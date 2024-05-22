@@ -1,6 +1,8 @@
+import swaggerUi from 'swagger-ui-express';
+
 const express = require('express')
 const app = express()
-const port = 2580
+const port = 3000
 const sequelize = require('./config/initSequelize')
 const bodyparser = require('body-parser')
 const Article = require('./models/article.js')
@@ -10,12 +12,13 @@ const utilisateurRouter = require('./routes/utilisateurRoute.js')
 const articleRouter = require('./routes/articleRouter.js')
 
 app.use(bodyparser.json());
+const swaggerDocument = require("./swagger.json");
+
 
 //Use routes
 app.use('/soa' , utilisateurRouter);
-app.use('/soa/blog' , articleRouter) ;
-
-
+app.use('/soa' , articleRouter) ;
+app.use('/api-doc',swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });

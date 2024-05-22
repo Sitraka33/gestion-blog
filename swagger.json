@@ -1,0 +1,281 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "gestion_blog"
+    },
+    "paths" :{
+        "/articles":{
+            "get":{
+                "tags":["aricles"],
+                "summary":"renvoie les articles",
+                "description":"renvoie les articles",
+                "responses":{
+                    "200":{
+                        "description":"renvoie la liste des artcles",
+                        "schema":{
+                            "type":"array",
+                            "items":{
+                                "type":"object",
+                                "properties":{
+                                    "IdArcticle":{
+                                        "type":"integer"
+                                    },
+                                    "titre":{
+                                        "type":"string"
+                                    },
+                                    "contenu":{
+                                        "type":"string"
+                                    },
+                                    "IdUtilusateur":{
+                                        "type":"integer"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description":"error",
+                        "schema": {
+                            "type": "object",
+                            "properties":{
+                                "error":{
+                                    "type":"object",
+                                    "properties":{
+                                        "name":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "article":{
+            "post":{
+                "tags":["article"],
+                "summary":"creer un article",
+                "description":"Cree l'article",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "required": true,
+                        "schema": {
+                            "type":"object",
+                            "properties":{
+                                "titre":{
+                                    "type":"string"
+                                },
+                                "contenu":{
+                                    "type":"string"
+                                },
+                                "IdUtilusateur":{
+                                    "type":"string"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "responses":{
+                    "201":{
+                        "description":"renvoie les donnees",
+                        "schema": {
+                            "type": "object",
+                            "properties":{
+                                "titre":{
+                                    "type":"integer"
+                                },
+                                "contenu":{
+                                    "type":"string"
+                                },
+                                "IdUtilusateur":{
+                                    "type":"string"
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description":"error",
+                        "schema": {
+                            "type": "object",
+                            "properties":{
+                                "error":{
+                                    "type":"object",
+                                    "properties":{
+                                        "name":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }      
+
+            }
+        },
+        "/article/{id}":{
+            "get":{
+                "tags":["article"],
+                "summary":"renvoie l'article par id",
+                "description":"renvoie l'article par id",
+                "parameters":[
+                    {
+                        "name" : "id",
+                        "required" : true,
+                        "in" : "paths",
+                        "type" : "integer"
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"renvoie les articles",
+                        "schema":{
+                            "type":"array",
+                            "items":{
+                                "type":"object",
+                                "properties":{
+                                    "IdArcticle":{
+                                        "type":"integer"
+                                    },
+                                    "titre":{
+                                        "type":"string"
+                                    },
+                                    "contenu":{
+                                        "type":"string"
+                                    },
+                                    "IdUtilusateur":{
+                                        "type":"integer"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description":"error",
+                        "schema": {
+                            "type": "object",
+                            "properties":{
+                                "error":{
+                                    "type":"object",
+                                    "properties":{
+                                        "name":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put":{
+                "tags":["article"],
+                "summary":"Mis à jour d'un article",
+                "description":"Mis à jour article",
+                "parameters":[
+                    {
+                        "name" : "id",
+                        "required" : true,
+                        "in" : "paths",
+                        "type" : "integer"
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"renvoie l'article mis a jour",
+                        "schema": {
+                            "type": "object",
+                            "properties":{
+                                "IdArcticle":{
+                                    "type":"integer"
+                                },
+                                "titre":{
+                                    "type":"string"
+                                },
+                                "contenu":{
+                                    "type":"string"
+                                },
+                                "IdUtilusateur":{
+                                    "type":"integer"
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description":"error",
+                        "schema": {
+                            "type": "object",
+                            "properties":{
+                                "error":{
+                                    "type":"object",
+                                    "properties":{
+                                        "name":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            }
+                        } 
+                    }
+                }                
+            },
+            "delete":{
+                "tags":["fiche"],
+                "summary":"supprimer un article",
+                "description":"supprimer un article",
+                "parameters":[
+                    {
+                        "name" : "id",
+                        "required" : true,
+                        "in" : "paths",
+                        "description" : "IdArticle de l'article",
+                        "type" : "integer"
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"renvoie les donnees sur l'article",
+                        "schema": {
+                            "type": "object",
+                            "properties":{
+                                "IdArcticle":{
+                                    "type":"integer"
+                                },
+                                "titre":{
+                                    "type":"string"
+                                },
+                                "contenu":{
+                                    "type":"string"
+                                },
+                                "IdUtilusateur":{
+                                    "type":"integer"
+                                }
+                            }
+                        }
+                    },
+                    "500":{
+                        "description":"error",
+                        "schema": {
+                            "type": "object",
+                            "properties":{
+                                "error":{
+                                    "type":"object",
+                                    "properties":{
+                                        "name":{
+                                            "type":"string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    
+    }
+}
